@@ -13,13 +13,18 @@
 </head>
 <body>
     <h1>Crear Nuevo Item</h1>
-    <form method="POST" action="/items">
+    <form method="POST" action="/api-clases/items">
+
         <label>Nombre del Item:
             <input type="text" name="name" required>
         </label>
         
         <label>Cantidad:
-            <input type="number" name="qty" min="1" required>
+            <input type="number" name="quantity" min="1" required>
+        </label>
+
+        <label>Precio:
+            <input type="number" name="price" step="0.01" min="0.01" required>
         </label>
         
         <button type="submit">Crear Item</button>

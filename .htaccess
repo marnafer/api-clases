@@ -1,8 +1,11 @@
 RewriteEngine On
 
-# 1. Denegar acceso a lo sensible
+# 1. Denegar acceso a lo sensible (Seguridad)
 RewriteRule ^(src|config|vendor|composer\.(json|lock)) - [F,L]
 
-# 2. Si la petición NO empieza con /public, la mandamos ahí
-RewriteCond %{REQUEST_URI} !^/public/
-RewriteRule ^(.*)$ public/$1 [L]
+# 2. Evitar bucles: Si el archivo o carpeta existe fÃ­sicamente, que lo cargue directo
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# 3. Si no existe, mandar TODO el trÃ¡fico directamente al index.php de public
+RewriteRule ^(.*)$ public/index.php [QSA,L]

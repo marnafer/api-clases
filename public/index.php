@@ -3,21 +3,21 @@ declare(strict_types=1);
 
 date_default_timezone_set('America/Argentina/Buenos_Aires');
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+require __DIR__ . '/../vendor/autoload.php';
+
+use App\Routes\Router;
+
 // Método HTTP
 $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 
-// URI pedida
-$requestUri = $_SERVER['REQUEST_URI'] ?? '/';
+// 1. Obtenemos la ruta limpia (sin query string)
+$path = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH);
 
-// Quitar query string
-$path = parse_url($requestUri, PHP_URL_PATH);
-
-// 1. Obtenemos la ruta limpia
-$path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-
-// 2. Limpieza agresiva: 
-// Esto quita CUALQUIER cosa que esté antes del "public" o del nombre de tu carpeta
-// y nos asegura que solo nos quede lo que sigue después.
+// 2. Limpieza agresiva para entornos locales (XAMPP)
 $publicPath = '/api-clases/public';
 $rootPath = '/api-clases';
 
@@ -29,7 +29,6 @@ if (strpos($path, $publicPath) === 0) {
 
 // 3. Normalización final
 $path = '/' . ltrim($path, '/');
-
 
 // Ruta de prueba
 if ($method === 'GET' && $path === '/health') {
@@ -45,6 +44,18 @@ if ($method === 'GET' && $path === '/health') {
 
     exit;
 }
+
+// RUTEO
+
+if ($path === '/items/new') {
+    require_once __DIR__ . '/../src/Routes/Router.php';
+    exit;
+}
+elseif ($path === '/items') {
+    require_once __DIR__ . '/../src/Routes/Router.php';
+    exit;
+}
+
 
 // No encontrada
 header('Content-Type: application/json; charset=utf-8');
