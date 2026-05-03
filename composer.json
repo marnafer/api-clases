@@ -1,0 +1,26 @@
+{
+    "name": "marnafer/api-clases",
+    "description": "API - Estructura profesional",
+    "type": "project",
+    "require": {
+        "php": ">=7.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/" 
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "App\\Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Marnafer",
+            "email": "marianofernandez98@outlook.com"
+        }
+    ],
+    "require-dev": {},
+    "scripts": {}
+}

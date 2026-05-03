@@ -1,0 +1,62 @@
+# /vendor/ (dependencias instaladas)
+vendor/
+
+# Archivos de entorno y credenciales
+.env
+.env.*.local
+.env.local
+.env.testing
+.env.backup
+
+# Binarios de Composer
+composer.phar
+
+# Dependencias y artefactos front-end
+node_modules/
+npm-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# Directorios de carga y distribución
+/public/uploads/
+/uploads/
+/build/
+/dist/
+
+# Cachés, logs y resultados de tests
+/.phpunit.result.cache
+/coverage/
+*.log
+logs/
+cache/
+tmp/
+*.cache
+phpunit.xml.cache
+
+# Caches de herramientas estáticas
+.php_cs.cache
+.phpstan.cache
+/.rector/
+
+# IDE / Editor
+/.idea/
+/.vscode/
+/.vs/
+*.suo
+*.user
+*.userosscache
+*.sln
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Archivos temporales y de swap
+*.swp
+*.bak
+*.tmp
+
+# Exclusiones comunes (ajustar según flujo)
+# Ignorar uploads temporales locales
+public/temp/
