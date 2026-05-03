@@ -1,26 +1,18 @@
 <?php
-declare(strict_types=1);
 
 namespace App\Models;
 
-class Example
+use Illuminate\Database\Eloquent\Model;
+
+class Item extends Model
 {
-    public int $id;
-    public string $name;
+    protected $table = 'items'; // Nombre de la tabla en la base de datos
 
-    public function __construct(int $id, string $name)
-    {
-        $this->id = $id;
-        $this->name = $name;
-    }
+    protected $fillable = [
+        'name',
+        'quantity',
+        'price'
+    ];
 
-    public static function fromArray(array $data): self
-    {
-        return new self((int)($data['id'] ?? 0), (string)($data['name'] ?? ''));
-    }
-
-    public function toArray(): array
-    {
-        return ['id' => $this->id, 'name' => $this->name];
-    }
+    public $timestamps = true;
 }

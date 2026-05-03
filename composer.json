@@ -11,5 +11,7 @@
             "email": "marianofernandez98@outlook.com"
         }
     ],
-    "require": {}
+    "require": {
+        "illuminate/database": "^12.58"
+    }
 }

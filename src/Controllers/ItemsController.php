@@ -4,6 +4,7 @@ namespace App\Controllers;
 use App\Validators\ItemValidator;
 use App\Helpers\Response;
 use App\Sanitizers\ItemSanitizer;
+use App\Models\Item;
 
 class ItemsController {
 
@@ -18,27 +19,23 @@ class ItemsController {
 	//Descripción: Obtiene listado completo de items del inventario.
 	//Respuesta esperada (200 OK): array de objetos Item.
 	public function listarItems() {
-		$items = [
-			[
-				"id" => 1,
-				"name" => "Item A",
-				"quantity" => 10,
-				"price" => 99.99,
-				"created_at" => "2024-03-01T12:00:00Z"
-			],
-			[
-				"id" => 2,
-				"name" => "Item B",
-				"quantity" => 5,
-				"price" => 49.99,
-				"created_at" => "2024-03-05T15:30:00Z"
-			]
-		];
-		Response::json([
-			'ok' => true,
-			'items' => $items
-		]);
-	}
+		
+		try {
+			$items = Item::all();
+
+				Response::json([
+					'ok' => true,
+					'items' => $items
+				]);
+			
+		} catch (\Exception $e) {
+
+				Response::json([
+					'ok' => false,
+					'error' => 'Error al obtener items: ' . $e->getMessage()
+				], 500);
+		}
+    }
 
 	### 3. Obtener Item por ID
 	//GET /api/items/{id}
@@ -66,18 +63,10 @@ class ItemsController {
 			], 400);
 		}
 
-		$nuevoItem = [	
-
-			"id" => rand(1,1000),
-			"name" => $itemLimpio['name'],
-			"quantity" => $itemLimpio['quantity'],
-			"price" => $itemLimpio['price'],
-			"created_at" => date('Y-m-d H:i:s')
-
-		];
+		$nuevoItem = Item::create($itemLimpio);
 		
 		http_response_code(201);
-			header('Content-Type: application/json');
+		header('Content-Type: application/json');
 			echo json_encode([
 				'ok' => true,
 				'item' => $nuevoItem

@@ -3,11 +3,9 @@ declare(strict_types=1);
 
 date_default_timezone_set('America/Argentina/Buenos_Aires');
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 require __DIR__ . '/../vendor/autoload.php';
+
+require __DIR__ . '/../config/database.php';
 
 use App\Routes\Router;
 
