@@ -21,7 +21,18 @@ class ItemsController {
 	public function listarItems() {
 		
 		try {
-			$items = Item::all();
+			// 1. Capturamos el parámetro 'q' de la URL (si no existe, queda vacío)
+			$busqueda = $_GET['q'] ?? '';
+
+			// 2. Evaluamos si hay que filtrar o traer todo
+			if (!empty($busqueda)) {
+				// Usamos Eloquent con un operador 'like' y comodines '%' 
+				// para que busque coincidencias parciales (ej: "item5")
+				$items = Item::where('name', 'like', '%' . $busqueda . '%')->get();
+			} else {
+				// Si no hay búsqueda, traemos todos
+				$items = Item::all(); 
+			}
 
 				Response::json([
 					'ok' => true,
